@@ -1,5 +1,5 @@
 <x-simple-layout>
-    <x-pane class="mx-auto my-3 p-5 d-flex flex-column justify-content-center align-items-center gap-3">
+    <x-center-pane>
         <h1>
             Login page
         </h1>
@@ -18,16 +18,18 @@
                 <input type="checkbox" name="remember" id="remember_me">
                 Remember me
             </label>
-            <a href="{{ route('password.request') }}">
-                Forgot your password?
-            </a>
-            <a href="{{ route('login.external', ['provider' => 'google']) }}">
-                Log in by Google
-            </a>
-            <a href="{{ route('login.external', ['provider' => 'github']) }}">
-                Log in by GitHub
-            </a>
         </x-form>
-        <a href="{{ route('shop.index') }}">Go back</a>
-    </x-pane>
+        <a href="{{ route('password.request') }}">
+            Forgot your password?
+        </a>
+        <a href="{{ route('login.external', ['provider' => 'google']) }}">
+            Log in by Google
+        </a>
+        <a href="{{ route('login.external', ['provider' => 'github']) }}">
+            Log in by GitHub
+        </a>
+        <a href="{{ route('shop.index') }}">
+            Go back
+        </a>
+    </x-center-pane>
 </x-simple-layout>

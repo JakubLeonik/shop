@@ -1,15 +1,16 @@
-@props(['categories' => [], 'currentCategory' => null])
 <select
     {{ $attributes->merge(['class' => 'form-select rounded-pill w-25']) }}
-    name="category"
-    id="category"
+    name="category_id"
+    id="category_id"
 >
-    <option
-        value="all"
-        {{ (strcmp($currentCategory, 'all') == 0) ? 'selected' : '' }}
-    >
-        All categories
-    </option>
+    @if($currentCategory ?? false)
+        <option
+            value="all"
+            {{ (strcmp($currentCategory, 'all') == 0) ? 'selected' : '' }}
+        >
+            All categories
+        </option>
+    @endif
     @foreach ($categories as $category)
         <option
             value="{{ $category->id }}"

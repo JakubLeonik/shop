@@ -17,17 +17,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 //shop page
-Route::view('/', 'shop.index')->name('shop.index');
-
-//products
-Route::get('/products', [ProductController::class, 'browse'])->name('products.browse');
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
-
+Route::get('/', ShopController::class)->name('shop.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     //dashboard
     Route::view('/dashboard', 'shop.dashboard')->name('shop.dashboard');
+
+    //products
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/products/create', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/browse', [ProductController::class, 'browse'])->name('products.browse');
+    Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::post('/products/{product}/edit', [ProductController::class, 'update'])->name('products.update');
 });
+
+//product - secure area
+Route::middleware(['auth', 'verified', 'password.confirm'])->group(function () {
+    Route::delete('/products/{product}/delete', [ProductController::class, 'destroy'])->name('products.delete');
+});
+
 
 //login providers
 Route::get('/login/{provider}', [ExternalLoginController::class, 'redirect'])->name('login.external');
