@@ -1,16 +1,22 @@
-@props(['fields' => [], 'standardClass' => true])
+@props([
+        'fields' => [],
+        'standardClass' => true,
+        'csrf' => true
+])
 
 <form
-    {{ $attributes->except(['submit-text', 'csrf', 'class', 'standard-class']) }}
+    {{ $attributes->except(
+        ['submit-text',
+         'class',
+         'standard-class'
+    ]) }}
     @class([
         $attributes['class'].' w-50 gap-3 p-4 d-flex flex-column justify-content-center align-items-center' => $standardClass,
         $attributes['class'] => !$standardClass
     ])
 >
-    @if($attributes['csrf'] ?? false)
-        @if($attributes['csrf'] != 'no')
-            @csrf
-        @endif
+    @if($csrf ?? false)
+        @csrf
     @endif
     @foreach($fields as $field)
         <input
@@ -26,7 +32,7 @@
     {{ $slot }}
 
     <input
-        class="form-control w-25 rounded-pill"
+        class="form-control w-50 rounded-pill"
         type="submit"
         value="{{ $attributes['submit-text'] }}"/>
 </form>
