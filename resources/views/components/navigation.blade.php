@@ -12,35 +12,33 @@
             class="d-flex flex-row gap-3 w-75 h-100"
             action="{{ route('products.browse') }}"
             method="GET"
-            :csrf="false"
+            csrf="no"
         >
             <x-category-select
+                :categories="$categories"
                 :current-category="request('category')"
             />
         </x-form>
     </div>
     <div class="d-flex flex-row h-100 w-25">
         @auth
-            <x-nav-option
-                class="w-50"
-                link="{{ route('shop.dashboard') }}"
-            >
+            <x-nav-option link="{{ route('shop.dashboard') }}">
                 Dashboard
             </x-nav-option>
-            <x-nav-option class="w-50">
-                <x-log-out-link />
+            <x-nav-option>
+                <form id="logoutForm" class="d-none" method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <input type="submit" value="Logout">
+                </form>
+                <span onclick="document.getElementById('logoutForm').submit()">
+                    Log out
+                </span>
             </x-nav-option>
         @else
-            <x-nav-option
-                class="w-50"
-                link="{{ route('login') }}"
-            >
+            <x-nav-option link="{{ route('login') }}">
                 Log in
             </x-nav-option>
-            <x-nav-option
-                class="w-50"
-                link="{{ route('register') }}"
-            >
+            <x-nav-option link="{{ route('register') }}">
                 Register
             </x-nav-option>
         @endif

@@ -3,6 +3,8 @@
         Shop
     </header>
     <x-navigation />
+
     {{ $slot }}
+
     <x-footer />
 </x-simple-layout>

@@ -1,5 +1,5 @@
 <x-simple-layout>
-    <x-center-pane>
+    <x-pane class="mx-auto text-center">
         <h1>
             Register
         </h1>
@@ -21,7 +21,7 @@
         </x-form>
         <a href="{{ route('login') }}">
             Already registered?
-        </a>
+        </a> <br>
         <a href="{{ route('shop.index') }}">Go back</a>
-    </x-center-pane>
+    </x-pane>
 </x-simple-layout>

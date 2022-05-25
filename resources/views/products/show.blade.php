@@ -8,13 +8,12 @@
                 {{ $product->title }}
             </span> <br>
             {{ $product->price }}$ <br>
-            Created by {{ $product->user->name }} in category {{ $product->category->name }} at {{ date_format( $product->created_at, 'j F Y') }} <br>
-            {{ $product->quantity }} items left
+            Created by {{ $product->user->name }} in category {{ $product->category->name }} at {{ date_format( $product->created_at, 'j F Y') }}
         </span>
         <hr>
         {{$product->description}}
-        <hr>
-        <a href="{{ route('products.browse') }}">
+
+        <a href="{{ route('products.index') }}">
             Go to all products
         </a>
     </x-pane>

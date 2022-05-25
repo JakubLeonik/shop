@@ -18,9 +18,6 @@
         a{
             color: #DDD;
         }
-        a:hover{
-            color: #FFF;
-        }
     </style>
 </head>
 <body class="d-flex flex-column justify-content-center align-content-center min-vh-100">
