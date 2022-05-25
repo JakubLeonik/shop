@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 //shop page
 Route::get('/', ShopController::class)->name('shop.index');
 
+Route::get('/products/browse', [ProductController::class, 'browse'])->name('products.browse');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     //dashboard
     Route::view('/dashboard', 'shop.dashboard')->name('shop.dashboard');
@@ -27,8 +30,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products/create', [ProductController::class, 'store'])->name('products.store');
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/products/browse', [ProductController::class, 'browse'])->name('products.browse');
-    Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::post('/products/{product}/edit', [ProductController::class, 'update'])->name('products.update');
 });

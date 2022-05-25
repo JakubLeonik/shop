@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
@@ -17,11 +18,13 @@ class ProductController extends Controller
 
     // create new product form
     public function create(){
+        $this->authorize('create', Product::class);
         return view('products.create');
     }
 
     // store new product
     public function store(){
+        $this->authorize('create', Product::class);
         $attributes  = request()->validate([
             'title' => ['required', Rule::unique('products', 'title')],
             'description' => 'required',
@@ -40,12 +43,14 @@ class ProductController extends Controller
 
     // delete product
     public function destroy(Product $product){
+        $this->authorize('delete', $product);
         $product->delete();
         return redirect()->route('products.index');
     }
 
     // edit product form
     public function edit(Product $product){
+        $this->authorize('update', $product);
         return view('products.edit', [
             'product' => $product
         ]);
@@ -53,6 +58,7 @@ class ProductController extends Controller
 
     // update product
     public function update(Product $product){
+        $this->authorize('update', $product);
         $attributes  = request()->validate([
             'title' => ['required', Rule::unique('products', 'title')->ignore($product->id)],
             'description' => 'required',
