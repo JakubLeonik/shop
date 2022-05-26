@@ -4,7 +4,7 @@
             Register
         </h1>
         <x-auth-session-status :status="session('status')" />
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-errors class="mb-4" :errors="$errors" />
         <x-form
             :fields="[
                 ['type' => 'text', 'name' => 'name'],

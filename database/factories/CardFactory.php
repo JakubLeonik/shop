@@ -15,7 +15,7 @@ class CardFactory extends Factory
                 'id' => $product->id,
                 'title' => $product->title,
                 'price' => $product->price,
-                'quantity' => $product->quantity
+                'quantity_in_card' => 1
             ];
         }, Product::all()->random(10)->all());
         return [

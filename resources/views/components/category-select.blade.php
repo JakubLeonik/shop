@@ -1,5 +1,8 @@
 <select
-    {{ $attributes->merge(['class' => 'form-select rounded-pill w-25']) }}
+    {{ $attributes->merge([
+        'class' => 'form-select rounded-pill w-25',
+        'style' => $attributes->prepends('cursor: pointer;')
+    ]) }}
     name="category_id"
     id="category_id"
 >

@@ -13,6 +13,6 @@
                 ['type' => 'hidden', 'name' => 'token', 'value' => $request->route('token')]
             ]"
         />
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-errors class="mb-4" :errors="$errors" />
     </x-center-pane>
 </x-simple-layout>

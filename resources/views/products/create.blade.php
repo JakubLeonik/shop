@@ -3,7 +3,7 @@
         <h1>
             Add new product
         </h1>
-        <x-auth-validation-errors :errors="$errors" />
+        <x-errors :errors="$errors" />
         <x-form
             method="POST"
             action="{{ route('products.store') }}"

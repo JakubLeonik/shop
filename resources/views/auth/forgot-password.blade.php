@@ -12,7 +12,7 @@
             ]"
         />
         <x-auth-session-status class="mb-4" :status="session('status')" />
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-errors class="mb-4" :errors="$errors" />
         <a href="{{ route('shop.index') }}">
             Main page
         </a>

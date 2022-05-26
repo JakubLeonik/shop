@@ -1,7 +1,9 @@
-<table
-    {{ $attributes->merge(['class' => 'border w-75 mx-auto']) }}
->
-    <thead>
+@if($products ?? false)
+    {{-- dd($products)--}}
+    <table
+        {{ $attributes->merge(['class' => 'border w-75 mx-auto']) }}
+    >
+        <thead>
         <tr class="border">
             <th class="p-3 text-center" scope="col">
                 #
@@ -21,55 +23,78 @@
                 Action
             </th>
         </tr>
-    </thead>
-    <tbody>
-    @foreach($products as $product)
-        <tr class="border">
-            <th class="p-3 text-center" scope="row">
-                {{ $loop->index+1 }}
+        </thead>
+        <tbody>
+        @foreach($products as $product)
+            <tr class="border">
+                <th class="p-3 text-center" scope="row">
+                    {{ $loop->index+1 }}
+                </th>
+                <td class="p-3 text-center">
+                    <a
+                        href="{{ route('products.show', ['product' => $product->id]) }}"
+                    >
+                        {{ $product->title }}
+                    </a>
+                </td>
+                <td class="p-3 text-center">
+                    {{ $product->price }}$
+                </td>
+                <td class="p-3 text-center">
+                    {{ $product->quantity_in_card }}
+                </td>
+                <td class="p-3 text-center border">
+                    {{ number_format($partlyTotalPirce($product), 2, ',', ' ') }}$
+                </td>
+                <td class="p-3 text-center">
+                    <form
+                        id={{"deleteFromCard".$product->id."Form"}}
+                    class="d-none"
+                        action="{{ route('card.delete', ['product' => $product->id]) }}"
+                        method="POST"
+                    >
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                    <a
+                        style="cursor: pointer; text-decoration: underline;"
+                        onclick="document.getElementById('{{'deleteFromCard'.$product->id.'Form'}}').submit()"
+                    >
+                        Delete from card
+                    </a>
+                </td>
+            </tr>
+        @endforeach
+        <tr>
+            <th class="p-3 text-end" colspan="4" scope="row">
+                Total price:
+            </th>
+            <th class="p-3 text-center border" scope="row">
+                {{ number_format($totalPrice, 2, ',', ' ') }}$
             </th>
             <td class="p-3 text-center">
-                <a
-                    href="{{ route('products.show', ['product' => $product->id]) }}"
-                >
-                    {{ $product->title }} -> {{ $product->id }}
-                </a>
-            </td>
-            <td class="p-3 text-center">
-                {{ $product->price }}$
-            </td>
-            <td class="p-3 text-center">
-                {{ $product->quantity }}
-            </td>
-            <td class="p-3 text-center border">
-                {{ number_format($partlyTotalPirce($product), 2, ',', ' ') }}$
-            </td>
-            <td class="p-3 text-center">
                 <form
-                    id={{"deleteFromCard".$product->id."Form"}}
-                    class="d-none"
-                    action="{{ route('card.delete', ['product' => $product->id]) }}"
                     method="POST"
+                    action="{{ route('card.truncate') }}"
+                    id="clearCard"
+                    class="d-none"
                 >
                     @csrf
                     @method('DELETE')
                 </form>
-                <a
+                <span
                     style="cursor: pointer; text-decoration: underline;"
-                    onclick="document.getElementById('{{'deleteFromCard'.$product->id.'Form'}}').submit()"
+                    onclick="document.getElementById('clearCard').submit()"
                 >
-                    Delete from card
-                </a>
+                Clear card
+            </span>
             </td>
         </tr>
-    @endforeach
-    <tr>
-        <th class="p-3 text-end" colspan="4" scope="row">
-            Total price:
-        </th>
-        <th class="p-3 text-center border" scope="row">
-            {{ number_format($totalPrice, 2, ',', ' ') }}$
-        </th>
-    </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+    <x-submit-card-button />
+@else
+    <span class="mx-auto">
+        No products yet
+    </span>
+@endif

@@ -1,5 +1,5 @@
 <x-layout>
-    <x-pane class="mx-auto text-center mt-3">
+    <x-pane class="mx-auto text-center my-3">
         <span class="fw-bold w-100 text-center">
             <span
                 class="w-100 text-center"
@@ -13,6 +13,9 @@
         </span>
         <hr>
         {{$product->description}}
+        <hr>
+        <x-card-add-button :product="$product" />
+        <x-errors />
         <hr>
         <a href="{{ route('products.browse') }}">
             Go to all products

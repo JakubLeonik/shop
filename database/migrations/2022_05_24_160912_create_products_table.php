@@ -12,8 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->unsignedDouble('price');
-            $table->text('description');
             $table->unsignedInteger('quantity');
+            $table->text('description');
             $table->foreignId('user_id');
             $table->foreignId('category_id');
             $table->timestamps();

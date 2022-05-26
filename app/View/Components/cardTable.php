@@ -12,13 +12,15 @@ class cardTable extends Component
     public function __construct($productsJSON)
     {
         $this->products = json_decode($productsJSON);
-        foreach ($this->products as $product){
-            $this->totalPrice += ($product->quantity * $product->price);
+        if($this->products ?? false){
+            foreach ($this->products as $product){
+                $this->totalPrice += ($product->quantity_in_card * $product->price);
+            }
         }
     }
 
     public function partlyTotalPirce($product){
-        return $product->price*$product->quantity;
+        return $product->price*$product->quantity_in_card;
     }
 
     public function render()

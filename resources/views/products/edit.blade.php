@@ -3,7 +3,7 @@
         <h1>
             Edit product
         </h1>
-        <x-auth-validation-errors :errors="$errors" />
+        <x-errors :errors="$errors" />
         <x-form
             method="POST"
             action="{{ route('products.update', ['product' => $product->id]) }}"

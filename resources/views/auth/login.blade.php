@@ -3,7 +3,7 @@
         <h1>
             Login page
         </h1>
-        <x-auth-validation-errors :errors="$errors" />
+        <x-errors :errors="$errors" />
         <x-form
             :fields="[
                 ['type' => 'email', 'name' => 'email'],
