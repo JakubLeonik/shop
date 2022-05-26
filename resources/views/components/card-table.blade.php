@@ -70,7 +70,7 @@
                 Total price:
             </th>
             <th class="p-3 text-center border" scope="row">
-                {{ number_format($totalPrice, 2, ',', ' ') }}$
+                {{ number_format($card->totalPrice(), 2, ',', ' ') }}$
             </th>
             <td class="p-3 text-center">
                 <form
@@ -92,7 +92,6 @@
         </tr>
         </tbody>
     </table>
-    <x-submit-card-button />
 @else
     <span class="mx-auto">
         No products yet

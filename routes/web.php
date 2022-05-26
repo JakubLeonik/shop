@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
@@ -9,16 +10,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', ShopController::class)->name('shop.index');
 
 // shopping card
-Route::get('/card/submit', [CardController::class, 'submit'])->name('card.submit');
 Route::delete('/card/truncate', [CardController::class, 'truncate'])->name('card.truncate');
 Route::delete('/card/{product}/delete', [CardController::class, 'destroy'])->name('card.delete');
 Route::post('/card/{product}/add', [CardController::class, 'store'])->name('card.store');
 
-
-
+//product - auth
 Route::middleware(['auth', 'verified'])->group(function () {
-
-    //product - auth
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::post('/products/{product}/edit', [ProductController::class, 'update'])->name('products.update');
@@ -31,11 +28,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/products/browse', [ProductController::class, 'browse'])->name('products.browse');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
-
+//orders
+Route::get('/order/create', [OrderController::class, 'create'])->name('orders.create');
+Route::post('/order/create', [OrderController::class, 'store'])->name('orders.store');
 
 //dashboard
-Route::view('/dashboard', 'shop.dashboard')->name('shop.dashboard');
-
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('/dashboard', 'shop.dashboard')->name('shop.dashboard');
+});
 
 //product - secure area
 Route::middleware(['auth', 'verified', 'password.confirm'])->group(function () {

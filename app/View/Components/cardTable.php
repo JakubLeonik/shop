@@ -7,16 +7,13 @@ use Illuminate\View\Component;
 class cardTable extends Component
 {
     public $products;
+    public $card;
     public $totalPrice = 0;
 
-    public function __construct($productsJSON)
+    public function __construct($productsJSON, $card)
     {
+        $this->card = $card;
         $this->products = json_decode($productsJSON);
-        if($this->products ?? false){
-            foreach ($this->products as $product){
-                $this->totalPrice += ($product->quantity_in_card * $product->price);
-            }
-        }
     }
 
     public function partlyTotalPirce($product){

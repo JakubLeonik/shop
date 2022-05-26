@@ -4,12 +4,26 @@
     </h1>
     <x-card-table
         class="mx-auto my-3"
+        :card="$card"
         :productsJSON="$card->products"
     />
+    @if($card->products != '')
+        <a
+            class="mx-auto"
+            href="{{ route('orders.create') }}"
+        >
+            Submit order
+        </a>
+    @endif
+    <x-errors
+        class="mx-auto my-3"
+        :errors="$errors"
+    />
     <a
-        class="mx-auto mt-3"
+        class="mx-auto mb-5"
         href="{{ route('shop.dashboard') }}"
     >
         Go back
     </a>
+    <x-footer />
 </x-simple-layout>
