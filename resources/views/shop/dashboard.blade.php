@@ -14,5 +14,8 @@
         <a href="{{ route('shop.index') }}">
             Main page
         </a>
+        @if(Session::has('orderStatus'))
+            <x-session-status :status="Session::get('orderStatus')" />
+        @endif
     </x-center-pane>
 </x-simple-layout>

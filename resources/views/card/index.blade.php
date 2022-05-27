@@ -16,7 +16,7 @@
         </a>
     @endif
     <x-errors
-        class="mx-auto my-3"
+        class="mw-100 text-center my-3"
         :errors="$errors"
     />
     <a

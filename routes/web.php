@@ -10,9 +10,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', ShopController::class)->name('shop.index');
 
 // shopping card
-Route::delete('/card/truncate', [CardController::class, 'truncate'])->name('card.truncate');
-Route::delete('/card/{product}/delete', [CardController::class, 'destroy'])->name('card.delete');
-Route::post('/card/{product}/add', [CardController::class, 'store'])->name('card.store');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::delete('/card/truncate', [CardController::class, 'truncate'])->name('card.truncate');
+    Route::delete('/card/{product}/delete', [CardController::class, 'destroy'])->name('card.delete');
+    Route::post('/card/{product}/add', [CardController::class, 'store'])->name('card.store');
+});
 
 //product - auth
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -29,8 +31,15 @@ Route::get('/products/browse', [ProductController::class, 'browse'])->name('prod
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 //orders
-Route::get('/order/create', [OrderController::class, 'create'])->name('orders.create');
-Route::post('/order/create', [OrderController::class, 'store'])->name('orders.store');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/order/create', [OrderController::class, 'create'])->name('orders.create');
+    Route::post('/order/create', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('/order/success-payment', function () {
+        dd(request()->all());
+    })->name('orders.success-payment');
+    Route::get('/order/{order}/payment', [OrderController::class, 'payment'])->name('orders.payment');
+    Route::post('/order/{order}/payment', [OrderController::class, 'processPayment'])->name('orders.process-payment');
+});
 
 //dashboard
 Route::middleware(['auth', 'verified'])->group(function () {
