@@ -2,6 +2,6 @@
 
 @if ($status)
     <div {{ $attributes->merge(['style' => 'color: green;']) }}>
-        {{ $status }}
+        {{$status}}
     </div>
 @endif

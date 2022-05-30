@@ -11,7 +11,7 @@
             style="cursor: pointer; text-decoration: underline;"
             onclick="document.getElementById('verificationMailForm').submit()"
         >
-            Send verification email
+            Send verification email again
         </span>
         <x-log-out-link style="cursor: pointer; text-decoration: underline;"/>
         @if (session('status') == 'verification-link-sent')

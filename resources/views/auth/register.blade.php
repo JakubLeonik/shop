@@ -3,7 +3,7 @@
         <h1>
             Register
         </h1>
-        <x-auth-session-status :status="session('status')" />
+        <x-session-status :status="session('status')" />
         <x-errors class="mb-4" :errors="$errors" />
         <x-form
             :fields="[

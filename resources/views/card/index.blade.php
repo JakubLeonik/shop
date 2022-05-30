@@ -1,5 +1,5 @@
 <x-simple-layout>
-    <h1 class="mx-auto">
+    <h1 class="my-5 mx-auto">
         Shopping card
     </h1>
     <x-card-table
@@ -20,10 +20,9 @@
         :errors="$errors"
     />
     <a
-        class="mx-auto mb-5"
+        class="mx-auto my-5"
         href="{{ route('shop.dashboard') }}"
     >
         Go back
     </a>
-    <x-footer />
 </x-simple-layout>

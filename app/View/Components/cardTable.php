@@ -13,7 +13,7 @@ class cardTable extends Component
     public function __construct($productsJSON, $card)
     {
         $this->card = $card;
-        $this->products = json_decode($productsJSON);
+        $this->products = json_decode($productsJSON) ?? [];
     }
 
     public function partlyTotalPirce($product){

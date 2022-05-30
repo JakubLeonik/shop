@@ -15,10 +15,6 @@
                 ['type' => 'text', 'name' => 'city_or_town_name'],
                 ['type' => 'text', 'name' => 'zip_code'],
             ]"
-        >
-            <span class="fw-bold">
-                Total price to pay: {{ $card->totalPrice() }}$
-            </span>
-        </x-form>
+        />
     </x-center-pane>
 </x-simple-layout>

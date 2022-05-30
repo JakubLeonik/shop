@@ -11,7 +11,7 @@
                 ['type' => 'email', 'name' => 'email']
             ]"
         />
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+        <x-session-status class="mb-4" :status="session('status')" />
         <x-errors class="mb-4" :errors="$errors" />
         <a href="{{ route('shop.index') }}">
             Main page

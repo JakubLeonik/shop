@@ -7,9 +7,15 @@ use Exception;
 
 class OrderController extends Controller
 {
+    public function index(){
+        return view('orders.index', [
+            'orders' => auth()->user()->orders
+        ]);
+    }
+
     public function create(){
         $card = auth()->user()->card;
-        return view('order.create', [
+        return view('orders.create', [
             'card' => $card
         ]);
     }
@@ -39,20 +45,25 @@ class OrderController extends Controller
         return redirect()->route('orders.payment', ['order' => $order]);
     }
     public function payment(Order $order){
-        return view('order.payment', [
+        $this->authorize('payment', $order);
+        if($order->status != 'bought') abort(404);
+        return view('orders.payment', [
             'order' => $order
         ]);
     }
     public function processPayment(Order $order){
-//        dd(request()->all());
+        $this->authorize('payment', $order);
+        $paymentMethod =  request()->validate([
+            'paymentMethod' => 'required'
+        ])['paymentMethod'];
         try {
-            auth()->user()->charge($order->totalPrice * 100, request('paymentMethod'));
+            auth()->user()->charge($order->totalPrice * 100, $paymentMethod);
             $order->status = "paid";
             $order->save();
-            return redirect()->route('shop.dashboard')->with(['orderStatus' => 'Success!']);
+            return redirect()->route('orders.index')->with(['orderStatus' => 'Success!']);
         } catch (Exception $e) {
             return redirect()->route('orders.payment', [
-                'order' => $order
+                'orders' => $order
             ])->withErrors('Payment Faild - '.$e->getMessage());
         }
     }

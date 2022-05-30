@@ -11,7 +11,7 @@
             submit-text="Pay"
             :fields="[
                 ['type' => 'text', 'name' => 'card_holder_name'],
-                ['type' => 'hidden', 'name' => 'order', 'value' => $order->id]
+                ['type' => 'hidden', 'name' => 'orders', 'value' => $order->id]
             ]"
         >
             <div
@@ -25,6 +25,11 @@
             <x-errors :errors="$errors" />
             <p id="card-error" role="alert"></p>
         </x-form>
+        <a href="{{route('orders.index')}}">
+            Pay later
+        </a>
+
+        {{--Scripts--}}
         <script src="https://js.stripe.com/v3/"></script>
         <script>
             var stripe = Stripe('{{ env("STRIPE_KEY") }}');

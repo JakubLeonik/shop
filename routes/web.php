@@ -11,6 +11,7 @@ Route::get('/', ShopController::class)->name('shop.index');
 
 // shopping card
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/card', [CardController::class, 'index'])->name('card.index');
     Route::delete('/card/truncate', [CardController::class, 'truncate'])->name('card.truncate');
     Route::delete('/card/{product}/delete', [CardController::class, 'destroy'])->name('card.delete');
     Route::post('/card/{product}/add', [CardController::class, 'store'])->name('card.store');
@@ -32,13 +33,11 @@ Route::get('/products/{product}', [ProductController::class, 'show'])->name('pro
 
 //orders
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/order/create', [OrderController::class, 'create'])->name('orders.create');
-    Route::post('/order/create', [OrderController::class, 'store'])->name('orders.store');
-    Route::get('/order/success-payment', function () {
-        dd(request()->all());
-    })->name('orders.success-payment');
-    Route::get('/order/{order}/payment', [OrderController::class, 'payment'])->name('orders.payment');
-    Route::post('/order/{order}/payment', [OrderController::class, 'processPayment'])->name('orders.process-payment');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/create', [OrderController::class, 'create'])->name('orders.create');
+    Route::post('/orders/create', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('/orders/{order}/payment', [OrderController::class, 'payment'])->name('orders.payment');
+    Route::post('/orders/{order}/payment', [OrderController::class, 'processPayment'])->name('orders.process-payment');
 });
 
 //dashboard
@@ -49,11 +48,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 //product - secure area
 Route::middleware(['auth', 'verified', 'password.confirm'])->group(function () {
     Route::delete('/products/{product}/delete', [ProductController::class, 'destroy'])->name('products.delete');
-});
-
-//card
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/card', [CardController::class, 'index'])->name('card.index');
 });
 
 //login provider
